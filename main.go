@@ -1,26 +1,12 @@
 package main
 
 import (
-	"crypto/rand"
-	"fmt"
 	"net/http"
-	"net/url"
 
 	"url-shortner/utils"
 
 	"github.com/gin-gonic/gin"
 )
-
-func getURLIndex() string {
-	b := make([]byte, 4)
-	rand.Read(b)
-	return fmt.Sprintf("%x", b)
-}
-
-func IsUrl(str string) bool {
-	u, err := url.Parse(str)
-	return err == nil && u.Scheme != "" && u.Host != ""
-}
 
 var urls = map[string]string{}
 
@@ -29,11 +15,11 @@ func main() {
 	r.GET("/add", func(c *gin.Context) {
 		url := c.Query("url")
 
-		if len(url) == 0 || !IsUrl(url) {
+		if len(url) == 0 || !utils.IsUrl(url) {
 			c.JSON(http.StatusNotFound, utils.ErrorResponse("Invalid URL"))
 			return
 		}
-		urlIndex := getURLIndex()
+		urlIndex := utils.GetURLIndex()
 		if _, ok := urls[urlIndex]; !ok {
 			urls[urlIndex] = url
 		}
