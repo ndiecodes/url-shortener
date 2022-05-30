@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"url-shortner/utils"
+	"url-shortener/utils"
 
 	"github.com/gin-gonic/gin"
 )
