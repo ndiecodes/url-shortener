@@ -16,7 +16,7 @@ func main() {
 		url := c.Query("url")
 
 		if len(url) == 0 || !utils.IsUrl(url) {
-			c.JSON(http.StatusNotFound, utils.ErrorResponse("Invalid URL"))
+			c.JSON(http.StatusBadRequest, utils.ErrorResponse("Invalid URL"))
 			return
 		}
 		urlIndex := utils.GetURLIndex()
